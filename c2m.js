@@ -1,7 +1,11 @@
+require('dotenv').config();
+const MITE_API_KEY = process.env.MITE_API_KEY;
+const MITE_ACCOUNT = process.env.MITE_ACCOUNT;
+
 const miteApi = require('mite-api');
 const mite = miteApi({
-    account: 'thisIsNotMyMiteAccount',
-    apiKey: 'thisIsNotMyApiKey',
+    account: MITE_ACCOUNT,
+    apiKey: MITE_API_KEY,
     applicationName: 'CalendarToMite'
 });
 

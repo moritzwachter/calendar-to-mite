@@ -4,6 +4,7 @@
   "description": "A small script mapping your Google Calendar events to Mite (time tracking software) via REST API",
   "main": "c2m.js",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "googleapis": "^39.2.0",
     "mite-api": "^0.1.1"
   },
