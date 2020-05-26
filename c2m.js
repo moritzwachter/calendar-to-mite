@@ -1,3 +1,10 @@
+const miteApi = require('mite-api');
+const mite = miteApi({
+    account: 'thisIsNotMyMiteAccount',
+    apiKey: 'thisIsNotMyApiKey',
+    applicationName: 'CalendarToMite'
+});
+
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
