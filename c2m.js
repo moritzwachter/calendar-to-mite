@@ -9,6 +9,9 @@ const mite = miteApi({
     applicationName: 'CalendarToMite'
 });
 
+// Testing if mite works
+mite.getMyself((err, res) => console.log(res));
+
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
