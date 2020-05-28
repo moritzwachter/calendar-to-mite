@@ -9,9 +9,6 @@ const mite = miteApi({
     applicationName: 'CalendarToMite'
 });
 
-// Testing if mite works
-mite.getMyself((err, res) => console.log(res));
-
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
@@ -128,7 +125,7 @@ async function getMappings() {
     });
 }
 
-function getProjectId(mappings, summary) {
+function getProjectAndServiceMapping(mappings, summary) {
     summary = summary.toLowerCase();
 
     let element = mappings.find(mapping => {
@@ -136,21 +133,7 @@ function getProjectId(mappings, summary) {
     });
 
     if (element) {
-        return element.projectId;
-    }
-
-    return null;
-}
-
-function getServiceId(mappings, summary) {
-    summary = summary.toLowerCase();
-
-    let element = mappings.find(mapping => {
-        return summary.indexOf(mapping.keyword.toLowerCase()) > -1;
-    });
-
-    if (element) {
-        return element.serviceId;
+        return [element.projectId, element.serviceId];
     }
 
     return null;
@@ -159,8 +142,7 @@ function getServiceId(mappings, summary) {
 getMappings().then(mappings => {
     let eventTitle = 'Some title with #coaching in it';
 
-    let serviceId = getServiceId(mappings, eventTitle);
-    let projectId = getProjectId(mappings, eventTitle);
+    const [projectId, serviceId] = getProjectAndServiceMapping(mappings, eventTitle);
 
     console.log(mappings, serviceId, projectId);
 });
