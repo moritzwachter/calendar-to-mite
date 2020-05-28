@@ -102,3 +102,30 @@ function listEvents(auth) {
         }
     });
 }
+
+const csv = require('fast-csv');
+const INPUT_PATH = process.env.INPUT_PATH;
+
+async function getMappings() {
+    const stream = fs.createReadStream(INPUT_PATH).pipe(csv.parse({ headers: true }));
+
+    return new Promise(function (resolve, reject) {
+        const mappings = [];
+
+        stream
+            .on('data', row => {
+                mappings.push({
+                    keyword: row.keyword,
+                    projectId: parseInt(row.project, 10),
+                    serviceId: parseInt(row.service, 10)
+                });
+            })
+            .on('error', reject)
+            .on('end', () => {
+                resolve(mappings);
+            })
+        ;
+    });
+}
+
+getMappings().then(result => console.log(result));
