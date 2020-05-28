@@ -128,4 +128,39 @@ async function getMappings() {
     });
 }
 
-getMappings().then(result => console.log(result));
+function getProjectId(mappings, summary) {
+    summary = summary.toLowerCase();
+
+    let element = mappings.find(mapping => {
+        return summary.indexOf(mapping.keyword.toLowerCase()) > -1;
+    });
+
+    if (element) {
+        return element.projectId;
+    }
+
+    return null;
+}
+
+function getServiceId(mappings, summary) {
+    summary = summary.toLowerCase();
+
+    let element = mappings.find(mapping => {
+        return summary.indexOf(mapping.keyword.toLowerCase()) > -1;
+    });
+
+    if (element) {
+        return element.serviceId;
+    }
+
+    return null;
+}
+
+getMappings().then(mappings => {
+    let eventTitle = 'Some title with #coaching in it';
+
+    let serviceId = getServiceId(mappings, eventTitle);
+    let projectId = getProjectId(mappings, eventTitle);
+
+    console.log(mappings, serviceId, projectId);
+});
