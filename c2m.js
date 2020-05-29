@@ -53,11 +53,27 @@ function getProjectAndServiceMapping(mappings, summary) {
     return [null, null];
 }
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 function runApplication(auth) {
     const calendar = google.calendar({version: 'v3', auth});
 
     let today = new Date();
-    let sevenDaysAgo = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
+    let sevenDaysAgo = new Date(today.getTime() - (0.5 * 24 * 60 * 60 * 1000));
+
+    let events = [];
 
     calendar.events.list({
         calendarId: 'primary',
@@ -67,17 +83,32 @@ function runApplication(auth) {
         orderBy: 'startTime',
     }, (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
-        const events = res.data.items;
+        events = res.data.items;
         if (events.length) {
-            console.log(events);
+            getMappings().then(mappings => {
+                events.forEach(event => {
+                    let start = Date.parse(event.start.dateTime);
+                    let end = Date.parse(event.end.dateTime);
+
+                    // duration in minutes
+                    let duration = (end - start) / (1000 * 60);
+
+                    const [projectId, serviceId] = getProjectAndServiceMapping(mappings, event.summary);
+
+                    let entry = {
+                        'date_at': formatDate(start), // needs to be YYYY-MM-DD
+                        'minutes': duration,
+                        'note': event.summary,
+                        'project_id': projectId,
+                        'service_id': serviceId
+                    };
+
+                    mite.addTimeEntry(entry, (err, res) => console.log(res));
+                });
+            });
+
         } else {
             console.log('No upcoming events found.');
         }
-    });
-
-    getMappings().then(mappings => {
-        let eventTitle = 'Some title with #coaching in it';
-        const [projectId, serviceId] = getProjectAndServiceMapping(mappings, eventTitle);
-        console.log(mappings, serviceId, projectId);
     });
 }
