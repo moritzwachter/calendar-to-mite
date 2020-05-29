@@ -1,5 +1,6 @@
-const google = require('./google.js');
-google.auth(google.listEvents);
+const {google} = require('googleapis');
+const googleAuth = require('./googleAuth.js');
+googleAuth.auth(runApplication);
 
 require('dotenv').config();
 const MITE_API_KEY = process.env.MITE_API_KEY;
@@ -52,10 +53,31 @@ function getProjectAndServiceMapping(mappings, summary) {
     return [null, null];
 }
 
-getMappings().then(mappings => {
-    let eventTitle = 'Some title with #coaching in it';
+function runApplication(auth) {
+    const calendar = google.calendar({version: 'v3', auth});
 
-    const [projectId, serviceId] = getProjectAndServiceMapping(mappings, eventTitle);
+    let today = new Date();
+    let sevenDaysAgo = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
 
-    console.log(mappings, serviceId, projectId);
-});
+    calendar.events.list({
+        calendarId: 'primary',
+        timeMin: sevenDaysAgo.toISOString(),
+        timeMax: today.toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime',
+    }, (err, res) => {
+        if (err) return console.log('The API returned an error: ' + err);
+        const events = res.data.items;
+        if (events.length) {
+            console.log(events);
+        } else {
+            console.log('No upcoming events found.');
+        }
+    });
+
+    getMappings().then(mappings => {
+        let eventTitle = 'Some title with #coaching in it';
+        const [projectId, serviceId] = getProjectAndServiceMapping(mappings, eventTitle);
+        console.log(mappings, serviceId, projectId);
+    });
+}
