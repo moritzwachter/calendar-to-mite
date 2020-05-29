@@ -71,10 +71,14 @@ class GoogleAuth {
      */
     listEvents(auth) {
         const calendar = google.calendar({version: 'v3', auth});
+
+        let today = new Date();
+        let sevenDaysAgo = new Date(today.getTime() - (7 * 24 * 60 * 60 * 1000));
+
         calendar.events.list({
             calendarId: 'primary',
-            timeMin: (new Date()).toISOString(),
-            maxResults: 10,
+            timeMin: sevenDaysAgo.toISOString(),
+            timeMax: today.toISOString(),
             singleEvents: true,
             orderBy: 'startTime',
         }, (err, res) => {
