@@ -49,7 +49,7 @@ function getProjectAndServiceMapping(mappings, summary) {
         return [element.projectId, element.serviceId];
     }
 
-    return null;
+    return [null, null];
 }
 
 getMappings().then(mappings => {
