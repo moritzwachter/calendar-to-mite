@@ -27,4 +27,4 @@ searching through the page's source code `id="time_entry_project_id"` or `id="ti
 
 ## Attention
 *This script in its current version (v0.1) is getting your Google Calendar events for the last 7 days and immediately 
-creates Mite entries for them! To change the timings, check `function runApplication(auth) { ... }` inside `c2m.js`.
+creates Mite entries for them! To change the timings, check `function runApplication(auth) { ... }` inside `c2m.js`.*
