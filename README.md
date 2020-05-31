@@ -2,6 +2,9 @@
 With this script, you can automatically generate Time Tracking entries for Mite (https://mite.yo.lk/) by mapping your 
 Google Calendar events to specific projects and services.
 
+## Workflow
+![Workflow](./docs/Calendar-To-Mite-Script.svg)
+
 ## How to / installation
 ```bash
 git clone git@github.com:moritzwachter/calendar-to-mite.git 
