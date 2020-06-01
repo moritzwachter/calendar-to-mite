@@ -2,7 +2,7 @@
   "name": "calendar-to-mite",
   "version": "1.0.0",
   "description": "A small script mapping your Google Calendar events to Mite (time tracking software) via REST API",
-  "main": "c2m.js",
+  "main": "calendar2mite.js",
   "dependencies": {
     "dotenv": "^8.2.0",
     "fast-csv": "^4.3.0",
