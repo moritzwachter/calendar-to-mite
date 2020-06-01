@@ -1,14 +1,17 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google: googleAuth} = require('googleapis');
-
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const TOKEN_PATH = '.google/token.json';
 
-class GoogleAuth {
+const config = require('./Config.js');
+const directory = config.GOOGLE_AUTH_DIRECTORY;
+const credentialsPath = directory + 'credentials.json';
+const tokenPath = directory + 'token.json'
+
+    class GoogleAuth {
     auth (callback) {
         // Load client secrets from a local file.
-        fs.readFile('.google/credentials.json', (err, content) => {
+        fs.readFile(credentialsPath, (err, content) => {
             if (err) return console.log('Error loading client secret file:', err);
             // Authorize a client with credentials, then call the Google Calendar API.
             return this.authorize(JSON.parse(content), callback);
@@ -27,7 +30,7 @@ class GoogleAuth {
             client_id, client_secret, redirect_uris[0]);
 
         // Check if we have previously stored a token.
-        fs.readFile(TOKEN_PATH, (err, token) => {
+        fs.readFile(tokenPath, (err, token) => {
             if (err) return getAccessToken(oAuth2Client, callback);
             oAuth2Client.setCredentials(JSON.parse(token));
             callback(oAuth2Client);
@@ -56,9 +59,9 @@ class GoogleAuth {
                 if (err) return console.error('Error retrieving access token', err);
                 oAuth2Client.setCredentials(token);
                 // Store the token to disk for later program executions
-                fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+                fs.writeFile(tokenPath, JSON.stringify(token), (err) => {
                     if (err) return console.error(err);
-                    console.log('Token stored to', TOKEN_PATH);
+                    console.log('Token stored to', tokenPath);
                 });
                 return callback(oAuth2Client);
             });
