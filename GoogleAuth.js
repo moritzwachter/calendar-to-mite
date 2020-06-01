@@ -3,10 +3,9 @@ const readline = require('readline');
 const {google: googleAuth} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
-const config = require('./Config.js');
-const directory = config.GOOGLE_AUTH_DIRECTORY;
-const credentialsPath = directory + 'credentials.json';
-const tokenPath = directory + 'token.json'
+const {GOOGLE_AUTH_DIRECTORY} = require('./Config');
+const credentialsPath = GOOGLE_AUTH_DIRECTORY + 'credentials.json';
+const tokenPath = GOOGLE_AUTH_DIRECTORY + 'token.json'
 
     class GoogleAuth {
     auth (callback) {
