@@ -29,7 +29,7 @@ class EventMapper {
         summary = summary.toLowerCase();
 
         let element = mappings.find(mapping => {
-            return summary.indexOf(mapping.keyword.toLowerCase()) > -1;
+            return summary.indexOf(mapping.keyword.toLowerCase()) !== -1;
         });
 
         if (element) {
