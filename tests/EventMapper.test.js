@@ -10,4 +10,14 @@ test('should get correct project and service mapping', () => {
 
     expect(projectId).toBe(1234);
     expect(serviceId).toBe(4321);
+});
+
+test('should return array with two null values', () => {
+    const mockMappings = [];
+    const [projectId, serviceId] = EventMapper.getProjectAndServiceMapping(mockMappings, 'summary #123');
+
+    expect(projectId).toBe(null);
+    expect(serviceId).toBe(null);
 })
+
+// @TODO: Filesystem tests / mocks
