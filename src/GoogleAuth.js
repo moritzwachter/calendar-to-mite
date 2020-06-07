@@ -7,7 +7,7 @@ const {GOOGLE_AUTH_DIRECTORY} = require('./Config');
 const credentialsPath = GOOGLE_AUTH_DIRECTORY + 'credentials.json';
 const tokenPath = GOOGLE_AUTH_DIRECTORY + 'token.json'
 
-    class GoogleAuth {
+class GoogleAuth {
     auth (callback) {
         // Load client secrets from a local file.
         fs.readFile(credentialsPath, (err, content) => {
