@@ -1,10 +1,16 @@
 const Mite = require('../src/Mite');
 
-const config = jest.mock('../src/Config');
+jest.mock('../src/Config', () => ({
+    MITE_API_KEY: 'apiKey',
+    MITE_ACCOUNT: 'miteAccount',
+    INPUT_PATH: 'inputPath',
+    GOOGLE_AUTH_DIRECTORY: 'authDirectory'
+}));
 
+jest.mock('../src/EventMapper', () => ({
+    getProjectAndServiceMapping: () => [123, 456]
+}));
 
 test('construction creates new miteApi object', () => {
     const mite = new Mite();
-    console.log(mite.mite.getAccount());
-   // this.expect(mite).toBeInstanceOf('mite-api');
 })
