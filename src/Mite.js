@@ -10,8 +10,6 @@ class Mite {
             apiKey: config.MITE_API_KEY,
             applicationName: 'CalendarToMite'
         });
-
-        console.log(config.MITE_ACCOUNT, eventMapper.getProjectAndServiceMapping([], ''));
     }
 
     generateEntryFormat (event, mappings) {
