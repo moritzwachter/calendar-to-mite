@@ -17,20 +17,19 @@ test('generateEntryFormat return values', () => {
     let end = new Date(start.getTime() + (60 * 60000));
 
     const event = {
-        start: {
-            dateTime: start
-        },
-        end: {
-            dateTime: end
-        },
+        start: {dateTime: start},
+        end: {dateTime: end},
         summary: 'summary'
     };
 
     let entry = mite.generateEntryFormat(event, []);
 
-    expect(entry.project_id).toBe(123);
-    expect(entry.service_id).toBe(456);
-    expect(entry.note).toBe('summary');
-    expect(entry.minutes).toBe(60);
-    expect(entry.date_at).toBe('2020-01-01');
+    const expectedResult = {
+        date_at: '2020-01-01',
+        minutes: 60,
+        note: 'summary',
+        project_id: 123,
+        service_id: 456
+    }
+    expect(entry).toStrictEqual(expectedResult);
 })
