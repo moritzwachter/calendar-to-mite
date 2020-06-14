@@ -12,7 +12,6 @@ jest.mock('../src/EventMapper', () => ({
 }));
 
 test('generateEntryFormat return values', () => {
-    const mite = new Mite();
     let start = new Date('2020-01-01T00:00:00-02:00');
     let end = new Date(start.getTime() + (60 * 60000));
 
@@ -22,7 +21,7 @@ test('generateEntryFormat return values', () => {
         summary: 'summary'
     };
 
-    let entry = mite.generateEntryFormat(event, []);
+    let entry = Mite.generateEntryFormat(event, []);
 
     const expectedResult = {
         date_at: '2020-01-01',

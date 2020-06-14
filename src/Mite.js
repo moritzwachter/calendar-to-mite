@@ -32,4 +32,4 @@ class Mite {
     }
 }
 
-module.exports = Mite;
+module.exports = new Mite();

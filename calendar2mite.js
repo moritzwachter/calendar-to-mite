@@ -11,15 +11,14 @@ function runApplication(auth) {
 
     const getEvents = calendar.getEvents(dateTime.getTimeMin(2), dateTime.getTimeMax());
     const getMappings = eventMapper.getMappings();
-    const mite = new Mite();
 
     Promise.all([getEvents, getMappings])
         .then(values => {
             const [events, mappings] = values
 
             events.forEach(event => {
-                let entry = mite.generateEntryFormat(event, mappings);
-                mite.addEntry(entry);
+                let entry = Mite.generateEntryFormat(event, mappings);
+                Mite.addEntry(entry);
             });
         })
         .catch(err => console.log(err))
