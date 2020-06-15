@@ -30,3 +30,4 @@ node_modules/
 
 # Credentials, etc. from Google
 .google/
+personal-mappings.csv
