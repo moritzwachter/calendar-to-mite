@@ -3,9 +3,11 @@ class EventFilter {
         let ignoreMappings = mappings.filter(mapping => mapping.ignore);
 
         return events.filter(event => {
-            return ignoreMappings.filter(mapping => {
+            const filtered = ignoreMappings.filter(mapping => {
                 return event.summary.indexOf(mapping.keyword.toLowerCase()) !== -1;
-            }).length > 0;
+            });
+
+            return filtered.length === 0;
         });
     }
 }
