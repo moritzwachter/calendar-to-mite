@@ -41,3 +41,48 @@ describe('filterIgnoreMappings', () => {
         expect(results.length).toBe(0);
     });
 });
+
+describe('filterMissedMeetings', () => {
+    it('should only return the 1 meeting I attended', () => {
+        const events = [
+            {
+                summary: 'event 1',
+                attendees: [
+                    {displayName: 'user A', self: false, responseStatus: 'accepted'},
+                    {displayName: 'user B', self: false, responseStatus: 'accepted'}
+                ]
+            },
+            {
+                summary: 'event 2',
+                attendees: [
+                    {displayName: 'user A', self: false, responseStatus: 'accepted'},
+                    {displayName: 'user B', self: false, responseStatus: 'accepted'},
+                    {displayName: 'user ME', self: true, responseStatus: 'declined'},
+                ]
+            },
+        ];
+
+        const result = eventFilter.filterMissedMeetings(events);
+
+        expect(result.length).toBe(1);
+        expect(result[0].summary).toBe('event 1');
+    });
+
+    it('should return meetings which I organized', () => {
+        const events = [
+            {
+                summary: 'event 1',
+                organizer: {displayName: 'user ME', self: true},
+                attendees: [
+                    {name: 'user A', self: false, responseStatus: 'accepted'},
+                    {name: 'user B', self: false, responseStatus: 'declined'},
+                ]
+            }
+        ];
+
+        const result = eventFilter.filterMissedMeetings(events);
+
+        expect(result.length).toBe(1);
+        expect(result[0].summary).toBe('event 1');
+    });
+});

@@ -8,6 +8,18 @@ class EventFilter {
             }).length === 0;
         });
     }
+
+    filterMissedMeetings(events) {
+        return events.filter(event => {
+            let acceptedAttendee = event.attendees.filter(attendee => {
+                return attendee.self && attendee.responseStatus === 'accepted'
+            }).length === 1;
+
+            let organizer = event.organizer.self === true;
+
+            return acceptedAttendee || organizer;
+        });
+    }
 }
 
 module.exports = new EventFilter();
