@@ -18,7 +18,9 @@ describe('filterIgnoreMappings', () => {
         const results = eventFilter.filterIgnoreMappings(events, mappings);
 
         expect(results.length).toBe(2);
-    })
+        expect(results[0].summary).toBe('#123 test');
+        expect(results[1].summary).toContain('another test');
+    });
 
     it('should return 0 events because all are ignored', () => {
         const mappings = [
@@ -37,5 +39,5 @@ describe('filterIgnoreMappings', () => {
         const results = eventFilter.filterIgnoreMappings(events, mappings);
 
         expect(results.length).toBe(0);
-    })
-})
+    });
+});
