@@ -18,7 +18,10 @@ class EventFilter {
                 }).length === 1;
             }
 
-            let organizer = event.organizer.self === true;
+            let organizer = false;
+            if (typeof event.organizer !== 'undefined') {
+                organizer = event.organizer.self === true;
+            }
 
             return acceptedAttendee || organizer;
         });

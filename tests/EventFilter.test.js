@@ -49,7 +49,8 @@ describe('filterMissedMeetings', () => {
                 summary: 'event 1',
                 attendees: [
                     {displayName: 'user A', self: false, responseStatus: 'accepted'},
-                    {displayName: 'user B', self: false, responseStatus: 'accepted'}
+                    {displayName: 'user B', self: false, responseStatus: 'accepted'},
+                    {displayName: 'user ME', self: true, responseStatus: 'accepted'},
                 ]
             },
             {
