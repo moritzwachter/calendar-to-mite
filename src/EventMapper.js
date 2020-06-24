@@ -4,7 +4,7 @@ const config = require('./Config.js');
 
 class EventMapper {
     async getMappings() {
-        const stream = fs.createReadStream(config.INPUT_PATH).pipe(csv.parse({ headers: true }));
+        const stream = fs.createReadStream(config.INPUT_PATH).pipe(csv.parse({ headers: true, delimiter: ';' }));
 
         return new Promise(function (resolve, reject) {
             const mappings = [];
