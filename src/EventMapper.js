@@ -14,7 +14,8 @@ class EventMapper {
                     mappings.push({
                         keyword: row.keyword,
                         projectId: parseInt(row.project, 10),
-                        serviceId: parseInt(row.service, 10)
+                        serviceId: parseInt(row.service, 10),
+                        ignore: parseInt(row.ignore, 10) === 1
                     });
                 })
                 .on('error', reject)
