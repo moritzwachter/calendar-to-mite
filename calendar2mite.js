@@ -10,7 +10,7 @@ googleAuth.auth(runApplication);
 function runApplication(auth) {
     const calendar = new GoogleCalendar(auth);
 
-    const getEvents = calendar.getEvents(dateTime.getTimeMin(2), dateTime.getTimeMax());
+    const getEvents = calendar.getEvents(dateTime.getTimeMin(7), dateTime.getTimeMax());
     const getMappings = eventMapper.getMappings();
 
     Promise.all([getEvents, getMappings])
