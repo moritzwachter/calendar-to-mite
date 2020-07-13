@@ -30,7 +30,7 @@ class Mite {
     }
 
     addEntry (entry) {
-        this.mite.addTimeEntry(entry, (err, res) => console.log(res));
+        this.mite.addTimeEntry(entry, (err, res) => console.log(res.time_entry.note));
     }
 }
 
