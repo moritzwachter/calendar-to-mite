@@ -1,5 +1,5 @@
-const googleAuth = require('./src/GoogleAuth.js');
-const GoogleCalendar = require('./src/GoogleCalendar');
+const googleAuth = require('./src/Google/GoogleAuth.js');
+const GoogleCalendar = require('./src/Google/GoogleCalendar');
 const dateTime = require('./src/DateTimeHelper');
 const eventMapper = require('./src/EventMapper');
 const eventFilter = require('./src/EventFilter');

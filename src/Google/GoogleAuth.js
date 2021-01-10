@@ -3,7 +3,7 @@ const readline = require('readline');
 const {google: googleAuth} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 
-const {GOOGLE_AUTH_DIRECTORY} = require('./Config');
+const {GOOGLE_AUTH_DIRECTORY} = require('../Config');
 const credentialsPath = GOOGLE_AUTH_DIRECTORY + 'credentials.json';
 const tokenPath = GOOGLE_AUTH_DIRECTORY + 'token.json'
 
