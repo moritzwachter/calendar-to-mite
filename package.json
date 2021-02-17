@@ -5,7 +5,7 @@
   "main": "calendar2mite.js",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "fast-csv": "^4.3.0",
+    "fast-csv": "^4.3.6",
     "googleapis": "^39.2.0",
     "mite-api": "^0.1.1"
   },
